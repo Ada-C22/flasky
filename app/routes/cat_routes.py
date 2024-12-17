@@ -31,7 +31,7 @@ def pet_cat(cat_id):
     
     db.session.commit()
 
-    return Response(status=204, mimetype="application/json")
+    return cat.to_dict()
 
 
 @bp.put("/<cat_id>")
