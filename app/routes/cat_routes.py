@@ -20,6 +20,20 @@ def get_single_cat(cat_id):
     cat = validate_model(Cat,cat_id)
     return cat.to_dict()
 
+@bp.patch("/<cat_id>/pet")
+def pet_cat(cat_id):
+    cat = validate_model(Cat, cat_id)
+
+    if cat.pet_count is None:
+        cat.pet_count = 1
+    else:
+        cat.pet_count += 1
+    
+    db.session.commit()
+
+    return Response(status=204, mimetype="application/json")
+
+
 @bp.put("/<cat_id>")
 def update_cat(cat_id):
     cat = validate_model(Cat,cat_id)
